@@ -1,12 +1,13 @@
-import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
-import { ThreadsService } from '../services/threads.service';
-import { ApplicationState } from '../store/application-state';
+import { Store } from "@ngrx/store";
+import { Component, OnInit } from "@angular/core";
+import { ThreadsService } from "../services/threads.service";
+import { ApplicationState } from "../store/application-state";
+import { LoadUserThreadsAction } from "../store/actions";
 
 @Component({
-  selector: 'thread-section',
-  templateUrl: './thread-section.component.html',
-  styleUrls: ['./thread-section.component.css']
+  selector: "thread-section",
+  templateUrl: "./thread-section.component.html",
+  styleUrls: ["./thread-section.component.css"]
 })
 export class ThreadSectionComponent implements OnInit {
 
@@ -15,7 +16,9 @@ export class ThreadSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.threadsService.loadUserThreads();
+    this.threadsService.loadUserThreads().subscribe(
+      x => this.store.dispatch(new LoadUserThreadsAction(x))
+    );
   }
 
 }
