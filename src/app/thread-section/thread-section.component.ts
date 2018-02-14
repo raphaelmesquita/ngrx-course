@@ -3,6 +3,8 @@ import { Component, OnInit } from "@angular/core";
 import { ThreadsService } from "../services/threads.service";
 import { ApplicationState } from "../store/application-state";
 import { LoadUserThreadsAction } from "../store/actions";
+import { skip, map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "thread-section",
@@ -11,10 +13,16 @@ import { LoadUserThreadsAction } from "../store/actions";
 })
 export class ThreadSectionComponent implements OnInit {
 
+  userName$: Observable<string>;
+
   constructor(private threadsService: ThreadsService, private store: Store<ApplicationState>) {
-    this.store.subscribe(
-      state => console.log("thread section received state", state)
-    );
+    this.userName$ = this.store.pipe(
+      skip(1),
+      map(this.mapStateToUserName));
+  }
+
+  mapStateToUserName(state: ApplicationState): string {
+    return state.storeData.participants[state.uiState.userId].name;
   }
 
   ngOnInit() {
