@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {AllUserData} from "../../../shared/to/all-user-data";
 import {Http} from "@angular/http";
@@ -10,7 +10,7 @@ export class ThreadsService {
 
 
     loadUserThreads(): Observable<AllUserData> {
-        return this.http.get('/api/threads')
+        return this.http.get("/api/threads")
             .map(res => res.json());
     }
 
