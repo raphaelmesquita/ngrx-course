@@ -12,7 +12,9 @@ import { LoadUserThreadsAction } from "../store/actions";
 export class ThreadSectionComponent implements OnInit {
 
   constructor(private threadsService: ThreadsService, private store: Store<ApplicationState>) {
-    this.store.subscribe(console.log);
+    this.store.subscribe(
+      state => console.log("thread section received state", state)
+    );
   }
 
   ngOnInit() {

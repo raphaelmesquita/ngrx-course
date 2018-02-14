@@ -7,3 +7,5 @@ export class LoadUserThreadsAction implements Action {
   readonly type = LOAD_USER_THREADS_ACTION;
   constructor(public payload: AllUserData) { }
 }
+
+export type Actions = LoadUserThreadsAction;

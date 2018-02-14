@@ -12,6 +12,14 @@ import { ThreadListComponent } from "./thread-list/thread-list.component";
 import { MessageListComponent } from "./message-list/message-list.component";
 import { ThreadsService } from "./services/threads.service";
 
+import { storeData } from "./store/store-data";
+import { uiState } from "./store/ui-state";
+
+export const reducers = {
+  uiState,
+  storeData
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +33,7 @@ import { ThreadsService } from "./services/threads.service";
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.forRoot({})
+    StoreModule.forRoot(reducers)
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
