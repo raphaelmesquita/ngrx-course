@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { Participant } from "../../../shared/model/participant";
 import { Thread } from "../../../shared/model/thread";
 import { Message } from "../../../shared/model/message";
@@ -19,7 +21,12 @@ export function storeData(state = INITIAL_STORE_DATA, action: Actions): StoreDat
   switch (action.type) {
     case LOAD_USER_THREADS_ACTION:
       let userData = action.payload;
-      return state;
+      return {
+        ...state,
+        participants: _.keyBy(userData.participants, x => x.id),
+        messages: _.keyBy(userData.messages, x => x.id),
+        threads: _.keyBy(userData.threads, x => x.id)
+      };
 
     default:
       return state;
