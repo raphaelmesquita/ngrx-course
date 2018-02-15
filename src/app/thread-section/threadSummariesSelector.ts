@@ -3,7 +3,7 @@ import { ApplicationState } from "../store/application-state";
 import { ThreadSummaryVM } from "./thread-summary.vm";
 import { Thread } from "../../../shared/model/thread";
 
-export function stateToThreadSummariesSelector(state: ApplicationState): ThreadSummaryVM[] {
+export function threadSummariesSelector(state: ApplicationState): ThreadSummaryVM[] {
 
   let mapThreadToThreadSummary = (thread: Thread) => {
     let names = _.keys(thread.participants).map(
