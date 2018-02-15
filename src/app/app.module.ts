@@ -16,8 +16,9 @@ import { MessageListComponent } from "./message-list/message-list.component";
 import { ThreadsService } from "./services/threads.service";
 import { environment } from "../environments/environment";
 
-import { storeData } from "./store/store-data";
-import { uiState } from "./store/ui-state";
+import { uiState } from "./store/reducers/uiStateReducer";
+import { storeData } from "./store/reducers/storeDataReducer";
+
 import { LoadThreadsEffectService } from "./store/effects/load-threads-effect.service";
 
 export const reducers = {
