@@ -1,3 +1,4 @@
+import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -16,6 +17,7 @@ import { environment } from "../environments/environment";
 
 import { storeData } from "./store/store-data";
 import { uiState } from "./store/ui-state";
+import { LoadThreadsEffectService } from "./store/effects/load-threads-effect.service";
 
 export const reducers = {
   uiState,
@@ -37,7 +39,8 @@ export const metaReducers = !environment.production ? [storeFreeze] : [];
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.forRoot(reducers, { metaReducers })
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([LoadThreadsEffectService])
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
