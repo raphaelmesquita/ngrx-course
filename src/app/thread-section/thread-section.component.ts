@@ -7,6 +7,9 @@ import { ApplicationState } from "../store/application-state";
 import { LoadUserThreadsAction } from "../store/actions";
 import { skip, map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { ThreadSummaryVM } from "./thread-summary.vm";
+import { mapStateToUserName } from "./mapStateToUserName";
+import { mapStateToUnreadMessagesCounter } from "./mapStateToUnreadMessagesCounter";
 
 @Component({
   selector: "thread-section",
@@ -17,28 +20,39 @@ export class ThreadSectionComponent implements OnInit {
 
   userName$: Observable<string>;
   unreadMessagesCounter$: Observable<number>;
+  threadSummaries$: Observable<ThreadSummaryVM[]>;
 
   constructor(private threadsService: ThreadsService, private store: Store<ApplicationState>) {
     this.userName$ =
       this.store.pipe(
         skip(1),
-        map(this.mapStateToUserName));
+        map(mapStateToUserName));
 
     this.unreadMessagesCounter$ =
       this.store.pipe(
         skip(1),
-        map(this.mapStateToUnreadMessagesCounter)
-      )
-  }
+        map(mapStateToUnreadMessagesCounter));
 
-  mapStateToUserName(state: ApplicationState): string {
-    return state.storeData.participants[state.uiState.userId].name;
-  }
+    this.threadSummaries$ = store.select(
+      state => {
 
-  mapStateToUnreadMessagesCounter(state: ApplicationState): number {
-    let currentUserId = state.uiState.userId;
-    return _.values(state.storeData.threads)
-      .reduce((acc, thread) => acc + thread.participants[currentUserId], 0);
+        let threads = _.values(state.storeData.threads);
+
+        return threads.map(thread => {
+
+          let names = _.keys(thread.participants).map(
+            participantId => state.storeData.participants[participantId].name);
+
+          let lastMessageId = _.last(thread.messageIds);
+
+          return {
+            id: thread.id,
+            participantNames: _.join(names, ","),
+            lastMessageText: state.storeData.messages[lastMessageId].text
+          };
+
+        });
+      });
   }
 
   ngOnInit() {
