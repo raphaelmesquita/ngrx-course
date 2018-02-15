@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import * as _ from "lodash";
 
 import { ApplicationState } from "../store/application-state";
-import { UserThreadsLoadedAction, LoadUserThreadsAction } from "../store/actions";
+import { UserThreadsLoadedAction, LoadUserThreadsAction, ThreadSelectedAction } from "../store/actions";
 import { skip, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ThreadSummaryVM } from "./thread-summary.vm";
@@ -31,6 +31,10 @@ export class ThreadSectionComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadUserThreadsAction());
+  }
+
+  onThreadSelected(selectedThreadId: number) {
+    this.store.dispatch(new ThreadSelectedAction(selectedThreadId))
   }
 
 }
