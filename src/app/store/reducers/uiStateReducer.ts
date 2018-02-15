@@ -5,7 +5,10 @@ export function uiState(state = INITIAL_UI_STATE, action: Actions): UiState {
   switch (action.type) {
 
     case THREAD_SELECTED_ACTION:
-      return state;
+      return {
+        ...state,
+        currentThreadId: action.payload
+      };
 
     default:
       return state;
