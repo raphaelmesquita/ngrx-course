@@ -44,11 +44,13 @@ export class ThreadSectionComponent implements OnInit {
             participantId => state.storeData.participants[participantId].name);
 
           let lastMessageId = _.last(thread.messageIds);
+          let lastMessage = state.storeData.messages[lastMessageId];
 
           return {
             id: thread.id,
             participantNames: _.join(names, ","),
-            lastMessageText: state.storeData.messages[lastMessageId].text
+            lastMessageText: lastMessage.text,
+            timestamp: lastMessage.timestamp
           };
 
         });
