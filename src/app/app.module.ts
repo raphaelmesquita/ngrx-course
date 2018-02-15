@@ -4,6 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { storeFreeze } from "ngrx-store-freeze";
 
 import { AppComponent } from "./app.component";
@@ -40,7 +41,8 @@ export const metaReducers = !environment.production ? [storeFreeze] : [];
     FormsModule,
     HttpModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([LoadThreadsEffectService])
+    EffectsModule.forRoot([LoadThreadsEffectService]),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]

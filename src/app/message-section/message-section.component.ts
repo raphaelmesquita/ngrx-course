@@ -9,11 +9,7 @@ import { ApplicationState } from "../store/application-state";
 })
 export class MessageSectionComponent implements OnInit {
 
-  constructor(private store: Store<ApplicationState>) {
-    store.subscribe(
-      state => console.log("message section received state", state)
-    );
-  }
+  constructor(private store: Store<ApplicationState>) { }
 
   ngOnInit() {
   }
