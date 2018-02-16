@@ -9,19 +9,20 @@ import { ThreadSectionComponent } from './thread-section/thread-section.componen
 import { MessageSectionComponent } from './message-section/message-section.component';
 import { ThreadListComponent } from './thread-list/thread-list.component';
 import { MessageListComponent } from './message-list/message-list.component';
-import {ThreadsService} from "./services/threads.service";
-import {StoreModule, combineReducers, Action} from "@ngrx/store";
-import {ApplicationState, INITIAL_APPLICATION_STATE} from "./store/application-state";
-import {EffectsModule} from "@ngrx/effects";
-import {LoadThreadsEffectService} from "./store/effects/load-threads-effect.service";
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {uiState} from "./store/reducers/uiStateReducer";
-import {storeData} from "./store/reducers/uiStoreDataReducer";
+import { ThreadsService } from "./services/threads.service";
+import { StoreModule, combineReducers, Action } from "@ngrx/store";
+import { ApplicationState, INITIAL_APPLICATION_STATE } from "./store/application-state";
+import { EffectsModule } from "@ngrx/effects";
+import { LoadThreadsEffectService } from "./store/effects/load-threads-effect.service";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { uiState } from "./store/reducers/uiStateReducer";
+import { storeData } from "./store/reducers/uiStoreDataReducer";
+import { WriteNewMessageEffectService } from './store/effects/write-new-message-effect.service';
 
 
 const reducers = {
-    uiState,
-    storeData
+  uiState,
+  storeData
 };
 
 
@@ -40,11 +41,12 @@ const reducers = {
     BrowserModule,
     FormsModule,
     HttpModule,
-      StoreModule.forRoot(reducers, {initialState: INITIAL_APPLICATION_STATE}),
-      EffectsModule.forRoot([
-          LoadThreadsEffectService
-      ]),
-      StoreDevtoolsModule.instrument({maxAge: 25})
+    StoreModule.forRoot(reducers, { initialState: INITIAL_APPLICATION_STATE }),
+    EffectsModule.forRoot([
+      LoadThreadsEffectService,
+      WriteNewMessageEffectService
+    ]),
+    StoreDevtoolsModule.instrument({ maxAge: 25 })
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
