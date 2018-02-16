@@ -22,7 +22,8 @@ export function uiState(state: UiState = INITIAL_UI_STATE, action: any): UiState
 
       return {
         ...state,
-        userId: action.payload
+        userId: action.payload,
+        currentThreadId: undefined
       };
 
     default:

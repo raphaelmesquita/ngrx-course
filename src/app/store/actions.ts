@@ -16,6 +16,7 @@ export class LoadUserThreadsAction implements Action {
 
   readonly type = LOAD_USER_THREADS_ACTION;
 
+  constructor(public payload: number) { }
 }
 
 
